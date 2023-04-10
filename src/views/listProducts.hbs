@@ -1,0 +1,49 @@
+<h2 style="margin-top: 30px; margin-bottom: 20px; font-size: 32px; color: blue;">ListProducts</h2>
+<table class="table">
+  <div class="container__search" style="display: flex; justify-content:space-between;">
+    <div class="add__products">
+      <a href="/product/addProducts:{{this._id}}">Add Product</a>
+    </div>
+    <div class="search__products">
+      <form action="/search" method="post">
+        <input type="text" name="query" placeholder="Search..." value="{{query}}">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">NameProducts</th>
+      <th scope="col">Price</th>
+      <th scope="col">Image</th>
+      <th scope="col">Description</th>
+      <th scope="col">Category</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{!-- {{#if isAdmin}} --}}
+    {{#if data}}
+    {{#each data}}
+    <tr>
+      <td style="font-weight: 600; color: chocolate;">{{this.name}}</td>
+      <td>{{this.price}} <span style="display: inline-flex;color :blue; align-items: flex-end;">VND</span></td>
+      <td>
+        <img src="data:{{image.contentType}};base64,{{this.image.data}}" alt="image" style="width: 50px; height: 50px;">
+      </td>
+      <td>{{this.desc}}</td>  
+      <td>{{this.category}}</td>
+      <td style="display: flex; justify-content: space-around; ">
+        <form method="POST" action="/product/delete">
+          <input type="hidden" name="id" value="{{this._id}}">
+          <button class="btn btn-danger" style="width: 70px;" type="submit">Delete</button>
+        </form>
+        <a class="btn btn-success" href="/product/addProducts:{{this._id}}" style="width: 70px;">Edit</a>
+      </td>
+    </tr>
+    {{/each}}
+    {{else}}
+    {{/if}}
+  </tbody>
+</table>
+

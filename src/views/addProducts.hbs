@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <h2 class="text-center mb-4">Add Product</h2>
+      <form action="/product/addProducts" method="post" enctype="multipart/form-data"> 
+        <input type="hidden" name="id" value="{{this._id}}">
+        <div class="form-group">
+          <label for="name">Product Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter product name" name="name"
+            value="{{data.name}}" required>
+        </div>
+        <select class="form-control" id="my-select" name="category">
+          <option value="Gia dụng">Gia Dụng</option>
+          <option value="Công nghệ">Công Nghệ</option>
+          <option value="Thời trang">Thời Trang</option>
+        </select>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="number" class="form-control" id="price" placeholder="Enter price" name="price"
+            value="{{data.price}}" required min="1">
+        </div>
+        
+          <label for="image">Image</label>
+          <input type="file" placeholder="Chọn ảnh " name="image" required>
+        
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" rows="3" placeholder="Enter description" name="desc"
+            value="{{data.desc}}" required minlength="20" maxlength="150">{{data.desc}}</textarea>
+        </div>
+        
+        <input type="submit" value="addProducts">
+      </form>
+    </div>
+  </div>
+</div>

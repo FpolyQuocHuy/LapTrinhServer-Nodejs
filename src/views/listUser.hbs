@@ -1,0 +1,53 @@
+<h2 style="margin-top: 30px; margin-bottom: 20px; font-size: 32px; color: blue;">Danh sách người dùng</h2>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">UserName</th>
+      <th scope="col">Email</th>
+      <th scope="col">PhoneNumber</th>
+      <th scope="col">Password</th>
+      <th scope="col">Role</th>
+      {{#if isAdmin}}
+      <th scope="col" style="display: flex; justify-content: center; ">Action</th>
+      {{/if}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#if isAdmin}}
+    {{#each data}}
+    <tr>
+      <td>
+        <a href="/user/detail:{{this._id}}">{{this.userName}}</a>
+      </td>
+      <td>{{this.email}}</td>
+      <td>{{this.numberPhone}}</td>
+      <td>{{this.password}}</td>
+      <td>{{this.role}}</td>
+      <td style="display: flex; justify-content: space-around;">
+        <form method="POST" action="/delete">
+          <input type="hidden" name="id" value="{{this._id}}">
+          <input type="hidden" name="_id" value="{{this.__id}}">
+          <button class="btn btn-danger" style="width: 70px;" type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+    {{else}}
+    {{#each data}}
+    <tr>
+      <td>
+        <a href="#" onclick="checkAdmin()">{{this.userName}}</a>
+      </td>
+      <td>{{this.email}}</td>
+      <td>{{this.numberPhone}}</td>
+      <td>{{this.password}}</td>
+      <td>{{this.role}}</td>
+      {{/each}}
+      {{/if}}
+  </tbody>
+</table>
+<script>
+  function checkAdmin() {
+    alert("Chức năng chỉ dành cho admin");
+  }
+</script>

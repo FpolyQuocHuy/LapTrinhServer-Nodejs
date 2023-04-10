@@ -1,0 +1,32 @@
+masv: CP17301 
+hoten: HoangQuocHuy 
+age: 24location
+location:306 ha huy tap
+
+
+
+const data = "masv: CP17301 \nhoten: HoangQuocHuy \nage: 24";
+
+create File 
+// fs.writeFile("study.txt" , data , (err)=> {
+//     if(err) {
+//         throw err;
+//     }
+//     console.log("create file succesfuly");
+// })
+
+edit file
+fs.appendFile("study.txt" , "\nlocation:306 ha huy tap" , (err) => {
+    console.log("add position succesfuly");
+});
+
+middlewefa-rotate-180// 
+app.use("/" , (req , res , next) => {
+//     const email = "admin@gmail.com"
+
+//     if(email == "admin1234@gmail.com") {
+//         next();
+//     }
+//     res.send("Bạn không có quyền truy cập")
+// });
+// connects our back end code with the database

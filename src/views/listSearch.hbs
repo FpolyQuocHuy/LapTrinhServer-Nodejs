@@ -1,0 +1,41 @@
+<h2 style="margin-top: 30px; margin-bottom: 20px; font-size: 32px; color: blue;">Danh sách Sản phẩm</h2>
+<table class="table">
+  <div class="container__search" style="display: flex; justify-content:space-between;">
+    <div class="add__products">
+      <a href="/product/addProducts:{{this._id}}">Thêm sản phẩm</a>
+    </div>
+    <div class="search__products">
+      <form action="/search" method="post">
+        <input type="text" name="query" placeholder="Search...">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Tên sản phẩm</th>
+      <th scope="col">giá</th>
+      <th scope="col">image</th>
+      <th scope="col">Mô tả sản phẩm</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each results}}
+    <tr>
+      <td style="font-weight: 600; color: chocolate;">{{this.name}}</td>
+      <td>{{this.price}} <span style="display: inline-flex;color :blue; align-items: flex-end;">VND</span></td>
+      <td>{{this.image}}</td>
+      <td>{{this.desc}}</td>
+      <td style="display: flex; justify-content: space-around; ">
+        <form method="POST" action="/delete">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="hidden" name="id" value="{{this._id}}">
+          <button class="btn btn-danger" style="width: 70px;" type="submit">Xóa</button>
+        </form>
+        <a class="btn btn-success" href="/product/addProducts:{{this._id}}" style="width: 70px;">Sửa</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

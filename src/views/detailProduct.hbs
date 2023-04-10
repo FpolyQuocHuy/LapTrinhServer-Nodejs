@@ -1,0 +1,172 @@
+<div class="container">
+    <style>
+        .show-detail {
+    height: max-content;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: #6a5af9 solid 1px;
+}
+
+.title-detail{
+    margin-top: 100px;
+}
+
+.btn-outline-primary{
+    margin-top: 10px;
+}
+
+.detail-item{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.detail-item-new {
+    font-size: 24px;
+    font-weight:700;
+    }
+
+.detail-btn-buy{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: max-content;
+    margin-top: 15px;
+}
+
+.detail-img{
+    flex-direction: column;
+    height: 400px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.detail-img>img {
+    width: 80%;
+    height: 100%;
+}
+.detail-information-full{
+    width: 100%;
+    height: max-content;
+    margin: 0 0 10px 0;
+    border-top: #6a5af9 1px solid;
+    padding-top: 30px;
+}
+
+.detail-information{
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    padding: 5px 20px;
+    width: 50%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    
+}
+
+.detail-title-information{
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.detail-content-information{
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 5px;
+}
+
+.detail-specifications{
+    margin-left: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    padding: 5px 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    
+}
+
+.detail-content-specifications{
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 10px;
+}
+
+.detail-content-specifications-gray{
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgba(128, 128, 128, 0.274);
+    padding: 10px;
+    margin: 0;
+}
+    </style>
+    <div class="title-detail">
+        <h2>{{data.name}}</h1>
+        <h2>{{data}}</h1>
+    </div>
+
+    <div class="show-detail">
+        <div class="row">
+            <input type="hidden" name="id" value="{{data._id}}">
+            <div class="col-lg-8 d-flex detail-img">
+                <img src="data:{{image.contentType}};base64,{{data.image.data}}" alt="ImageProduct">
+            </div>
+            <div class="col-lg-4" style="display: flex;flex-direction: column;margin-bottom: 10px;align-items: center;">
+                <div class="detail-item">               
+                    <p class="detail-item-new"><span style="color: green;">Price: </span>{{data.price}} $</p>
+                </div>
+                 <div class="detail-item">
+                    <p class="detail-item-new"  style="color: rgb(77, 12, 230);">Category : <span style="color: cornflowerblue;">{{data.Category}} </span></p>
+                </div>
+                 <div class="detail-item">
+                    <input type="text" name="name" id="name" value="{{data.name}}"> 
+                </div>
+               <div class="detail-item">
+                    <p class="detail-item-new" style="font-size: 18px; color: brown;">Shop : {{data.nguoiDang}} </p>
+                </div>
+               
+                <div class="detail-btn-buy">
+                    <button type="button" class="btn btn-outline-danger">Mua ngay</button>
+                    <button type="button" class="btn btn-outline-primary">Xem thêm sản phẩm khác</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row detail-information-full">
+        {{!-- information --}}
+        <div class="col-lg-5 detail-information">
+            <p class="detail-title-information">Thông tin sản phẩm</p>
+
+            <p class="detail-content-information"> -Mới, đầy đủ phụ kiện từ nhà sản xuất</p>
+            <p class="detail-content-information"> -Máy, Sách hướng dẫn, Cây lấy sim, Ốp lưng, Cáp Type C, Củ sạc nhanh
+                rời đầu Type A</p>
+            <p class="detail-content-information"> -Bảo hành 18 tháng tại trung tâm bảo hành Chính hãng. 1 đổi 1 trong
+                30 ngày nếu có lỗi phần cứng từ
+                nhà sản xuất. (xem chi tiết)</p>
+
+        </div>
+
+        {{!-- Specifications --}}
+        <div class="col-lg-5 detail-specifications">
+            <p class="detail-title-information">Thông số kĩ thuật</p>
+
+            <div style="border: 1px solid rgba(128, 128, 128, 0.4);border-radius: 10px;margin: 0 20px;overflow: hidden;height: max-content;">
+                <p class="detail-content-specifications-gray">Kích thước màn hình: </p>
+                <p class="detail-content-specifications">Công nghệ màn hình: </p>
+                <p class="detail-content-specifications-gray">Camera sau: </p>
+                <p class="detail-content-specifications">Camera trước: </p>
+                <p class="detail-content-specifications-gray">Chipset: </p>
+                <p class="detail-content-specifications">Dung lượng RAM: </p>
+                <p class="detail-content-specifications-gray">Bộ nhớ trong: </p>
+                <p class="detail-content-specifications">Pin: </p>
+                <p class="detail-content-specifications-gray">Thẻ SIM: </p>
+                <p class="detail-content-specifications">Hệ điều hành: </p>
+                <p class="detail-content-specifications-gray">Độ phân giải màn hình: </p>
+                <p class="detail-content-specifications">Tính năng màn hình: </p>
+                <p class="detail-content-specifications-gray">Trọng lượng: </p>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
