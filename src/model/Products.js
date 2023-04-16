@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 
 const usersSchema = new mongoose.Schema({
-    // id : {
-    //     type: String,
-    // },
+    
     category : {
         type : String
     },

@@ -10,6 +10,8 @@ router.get("/listUser", async (req, res, next) => {
     const users = await information.find({});
     var data = users;
     var isAdmin = false;
+    var countUser = data.length;
+    console.log("Số lượng nguowiuf dùng : " + countUser);
     data.map(users => {
         if(users.userName == user && users.role == "admin"){
             isAdmin = true;
@@ -17,7 +19,8 @@ router.get("/listUser", async (req, res, next) => {
     });
     console.log("Is admin : " + isAdmin);
   
-    res.render("listUser", { style: "styles.css", data: data.map(data => data.toJSON()), user: user , isAdmin : isAdmin });
+    res.render("listUser", { style: "styles.css", data: data.map(data => data.toJSON()), user: user 
+    , isAdmin : isAdmin ,countUser : countUser });
 });
 router.get("/listUser11", async (req, res, next) => {
     

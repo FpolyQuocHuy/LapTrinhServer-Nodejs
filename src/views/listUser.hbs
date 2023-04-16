@@ -5,7 +5,7 @@
       <th scope="col">UserName</th>
       <th scope="col">Email</th>
       <th scope="col">PhoneNumber</th>
-      <th scope="col">Password</th>
+      <th scope="col">Address</th>
       <th scope="col">Role</th>
       {{#if isAdmin}}
       <th scope="col" style="display: flex; justify-content: center; ">Action</th>
@@ -21,7 +21,7 @@
       </td>
       <td>{{this.email}}</td>
       <td>{{this.numberPhone}}</td>
-      <td>{{this.password}}</td>
+      <td>{{this.address}}</td>
       <td>{{this.role}}</td>
       <td style="display: flex; justify-content: space-around;">
         <form method="POST" action="/delete">
@@ -32,6 +32,7 @@
       </td>
     </tr>
     {{/each}}
+    <P>Số lượng User : {{countUser}}</P>
     {{else}}
     {{#each data}}
     <tr>
@@ -40,7 +41,7 @@
       </td>
       <td>{{this.email}}</td>
       <td>{{this.numberPhone}}</td>
-      <td>{{this.password}}</td>
+      <td>{{this.address}}</td>
       <td>{{this.role}}</td>
       {{/each}}
       {{/if}}

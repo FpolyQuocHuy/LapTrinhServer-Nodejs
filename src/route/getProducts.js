@@ -18,6 +18,8 @@ router.get("/listProducts", async (req, res, next) => {
     });
     try {
         const products = await Products.find({});
+   
+
         const datas = products.map(products => {
             if (products.nguoiDang == user) {
                 return {
@@ -41,9 +43,9 @@ router.get("/listProducts", async (req, res, next) => {
         }
         );
         const data = datas.filter(item => item);
+        var countProduct = data.length;  
 
-
-        res.render("listProducts", { style: "styles.css", data: data, user: user });
+        res.render("listProducts", { style: "styles.css", data: data, user: user ,countProduct: countProduct });
     } catch (err) {
         console.log(err);
         res.status(500).send('Error Occurred');
