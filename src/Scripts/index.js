@@ -53,7 +53,7 @@ app.get("/home", async(req, res , next) => {
         return {
             ...products.toJSON(),
             image: {
-              data: products.image.data.toString('base64'),
+                data: `data:${products.image.contentType};base64,${products.image.data.toString('base64')}`,
               contentType: products.image.contentType
             }
           };
@@ -70,8 +70,16 @@ app.get("/home", async(req, res , next) => {
 });
 app.get("/home1", async(req, res ) => {
     const products = await Products.find({});
-
-    res.json(products);
+    var data = products.map(products => {
+        return {
+            ...products.toJSON(),
+            image: {
+                data: `data:${products.image.contentType};base64,${products.image.data.toString('base64')}`,
+              contentType: products.image.contentType
+            }
+          };
+    });
+    res.json(data);
 
 });
 app.use("/" , loginRouter);

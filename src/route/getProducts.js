@@ -25,7 +25,7 @@ router.get("/listProducts", async (req, res, next) => {
                 return {
                     ...products.toJSON(),
                     image: {
-                        data: products.image.data.toString('base64'),
+                        data: `data:${products.image.contentType};base64,${products.image.data.toString('base64')}`,
                         contentType: products.image.contentType
                     },
                 };
@@ -34,7 +34,7 @@ router.get("/listProducts", async (req, res, next) => {
                 return {
                     ...products.toJSON(),
                     image: {
-                        data: products.image.data.toString('base64'),
+                        data: `data:${products.image.contentType};base64,${products.image.data.toString('base64')}`,
                         contentType: products.image.contentType
                     },
                 };
@@ -44,6 +44,7 @@ router.get("/listProducts", async (req, res, next) => {
         );
         const data = datas.filter(item => item);
         var countProduct = data.length;  
+        console.log("Sanbr phẩm : " + data);
 
         res.render("listProducts", { style: "styles.css", data: data, user: user ,countProduct: countProduct });
     } catch (err) {
