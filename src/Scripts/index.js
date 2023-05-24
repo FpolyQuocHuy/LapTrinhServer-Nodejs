@@ -93,7 +93,7 @@ app.use("/" , detailProduct);
 
 // router.get("/products/addProducts:id" , addProducts); 
 app.listen(5000, () => {
-    console.log('server is runing : http://localhost:5000');
+    console.log('server is runing : http://localhost:5000/home');
 
 });
 
