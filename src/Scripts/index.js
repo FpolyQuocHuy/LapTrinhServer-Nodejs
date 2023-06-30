@@ -17,9 +17,11 @@ const information = require("../route/information");
 const detailUser = require("../route/detailUser");
 const detailProduct = require("../route/detailProduct")
 const bodyParser = require("body-parser");
-
+const jwt = require('../config/checkJWT');
 
 const app = express();
+const bearerToken = require('express-bearer-token');
+app.use(bearerToken());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -30,6 +32,7 @@ db.once('open', function () {
     console.log("Connected to MongoDB");
 
 });
+
 app.engine('.hbs', exphbs.engine());
 app.set('view engine', '.hbs');
 app.set("views", "./src/views");

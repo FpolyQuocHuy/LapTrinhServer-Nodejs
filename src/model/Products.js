@@ -21,9 +21,22 @@ const usersSchema = new mongoose.Schema({
     nguoiDang : {
         type: String
     }
-    
-});
+}, {
+    collection:'products'   
+} 
+);
 
 const Products = mongoose.model("products" , usersSchema);
 
+
+// for(var i = 0; i < 20;i++) {
+//      Products.create({
+//         category:"Quần áo",
+//         name: "Quần áo " + i,
+//         price:"200000",
+//         image:"",
+//         desc:"mô tả số" + i ,
+//         nguoiDang:"huyhuy123"
+//     });
+// }
 module.exports = Products;
