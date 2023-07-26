@@ -54,14 +54,23 @@
 
                     </div>
                 </div>
-
                 {{#if user}}
-                <div class="container__login" style="display: flex; justify-content: flex-end; width: 250px;">
+                <div class="container__login" style="display: flex; justify-content: flex-end; width: 300px;">
+                    <img src="{{user.picture}}" alt="avt user"
+                        style="width: 48px; height: 48px; border-radius: 50%; margin-right: 10px;">
                     <i class="fas fa-user" style=""></i>
                     <a href="/information"
-                        style="font-size: 16px; color: white; padding-right: 10px;margin-right: 20px;">{{user}}</a>
+                        style="font-size: 16px; color: white; padding-right: 10px; margin-right: 20px;">
+                        {{#if user.userName}}
+                        {{user.userName}}
+                        {{else}}
+                        {{user.displayName}}
+                        {{/if}}
+                    </a>
                     <a href="/login" onclick="handleClick()"
-                        style="font-size: 16px; color: white;flex-wrap: nowrap; color: rgb(240, 133, 133);">Logout</a>
+                        style="font-size: 16px; color: white; flex-wrap: nowrap; color: rgb(240, 133, 133);">
+                        Logout
+                    </a>
                 </div>
                 {{else}}
                 <div class="container__login" style="display: flex; justify-content: flex-end; width: 120px;">

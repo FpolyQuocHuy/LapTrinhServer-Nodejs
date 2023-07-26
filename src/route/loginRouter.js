@@ -50,9 +50,9 @@ router.post("/login" , async(req , res) => {
           console.log("OTP đã bị xóa.");
         }, 120000);
         try {
-          //  sendMail({ email, otp });
-          // res.redirect('/otp');
-          res.redirect('/home');
+           sendMail({ email, otp });
+          res.redirect('/otp');
+          // res.redirect('/home');
         }catch(err) {
           console.log("Lỗi : " , err);
         }
@@ -77,11 +77,10 @@ router.get('/auth/google',
 
 router.post('/verify-otp', (req, res) => {
   const submittedOTP = req.body.otp;
-  const expectedOTP = req.session.otp; 
-  console.log("otp " , expectedOTP);
-  console.log("submittedOTP " , submittedOTP);
+  const expectedOTP = req.session.otp;
   if (submittedOTP == expectedOTP) {
     console.log("Đăng nhập thành công");
+    console.log(req.body.user);
     res.redirect('/home');
    
   }else {
@@ -98,6 +97,7 @@ router.get('/otp', (req, res) => {
 router.get( '/auth/google/callback',
 passport.authenticate('google', { failureRedirect: '/login' }),
 (req, res) => {
+  req.session.user = req.user;
   res.redirect('/home');
 }
 );
