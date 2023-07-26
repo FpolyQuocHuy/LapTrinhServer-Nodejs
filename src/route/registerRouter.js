@@ -16,7 +16,7 @@ router.post("/register", async (req, res, next) => {
         email: req.body.email,
         role: req.body.role
     }
-    if(data.userName.length < 6) {
+    if (data.userName.length < 6) {
         next();
     }
     await Users.insertMany([data]);

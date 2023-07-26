@@ -1,0 +1,11 @@
+<form method="POST" action="/verify-otp">
+  <div class="form-group">
+    <label for="otpInput">Nhập mã xác nhận</label>
+    <input type="text" class="form-control" id="otpInput" name="otp" aria-describedby="otpHelp" placeholder="Input OTP" required>
+    <small id="otpHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  {{#if errorMessage}}
+    <div class="alert alert-danger">{{errorMessage}}</div>
+  {{/if}}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
