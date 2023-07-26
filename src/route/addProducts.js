@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Products = require("../model/Products");
-const upload = require("../../middle/uploadFile.js");
-const fs = require("fs");
+const  upload    = require("../../middle/uploadFile.js");
+const fs =require('fs');
 const path = require('path');
 
 
@@ -48,7 +48,13 @@ async function updateProducts(req, res, { data }) {
 router.post("/product/addProducts", upload.single("image"), (req, res, next) => {
 
     var user = req.session.user ? req.session.user.userName : "";
-    const fileName = req.file.filename;
+
+
+    const fileSizeInBytes = req.file.size; 
+    const fileSizeInKB = fileSizeInBytes / 1024; 
+  
+    console.log(`Dung lượng tệp tải lên: ${fileSizeInKB} KB`);
+
     const data = {
         name: req.body.name,
         category: req.body.category,
@@ -76,5 +82,6 @@ router.post("/product/addProducts", upload.single("image"), (req, res, next) => 
     }
 });
 
-
+  // ------------------------------------------------------------------------------------------------
+  
 module.exports = router;

@@ -3,10 +3,14 @@ const router = express.Router();
 const Products = require("../model/Products");
 const information = require("../model/Information");
 
-
+const NodeCache = require('node-cache')
+const myCache = new NodeCache();
 
 router.get("/listProducts", async (req, res, next) => {
     var user = req.session.user ? req.session.user.userName : "";
+    var PAGE_SIZE = 5;
+    const currentPage = parseInt(req.query.page) || 1;
+    const countPage = (currentPage - 1) * PAGE_SIZE;
 
     const users = await information.find({});
     var datas = users;
@@ -15,11 +19,10 @@ router.get("/listProducts", async (req, res, next) => {
         if (users.userName == user && users.role == "admin") {
             isAdmin = true;
         }
-    });
+    })
     try {
-        const products = await Products.find({});
-   
-
+        const countProd = await Products.countDocuments();
+        const products = await Products.find({}).skip(countPage).limit(PAGE_SIZE);
         const datas = products.map(products => {
             if (products.nguoiDang == user) {
                 return {
@@ -31,6 +34,7 @@ router.get("/listProducts", async (req, res, next) => {
                 };
             }
             if (isAdmin) {
+
                 return {
                     ...products.toJSON(),
                     image: {
@@ -42,11 +46,22 @@ router.get("/listProducts", async (req, res, next) => {
 
         }
         );
-        const data = datas.filter(item => item);
-        var countProduct = data.length;  
-        console.log("Sanbr phẩm : " + data);
+        const key = "listProducts";
+        const value = datas;
+        myCache.set(key, value, 100000);
 
-        res.render("listProducts", { style: "styles.css", data: data, user: user ,countProduct: countProduct });
+        const totalPages = Math.ceil(countProd / PAGE_SIZE);
+        const nextPage = (currentPage < totalPages) ? currentPage + 1 : null;
+
+        const data = datas.filter(item => item);
+        res.render("listProducts", {
+            style: "styles.css",
+            data: data,
+            user: user,
+            nextPage: nextPage,
+            currentPage: currentPage,
+            totalPages: totalPages
+        });
     } catch (err) {
         console.log(err);
         res.status(500).send('Error Occurred');
@@ -55,25 +70,25 @@ router.get("/listProducts", async (req, res, next) => {
 
 router.post('/search', async (req, res) => {
     const query = req.body.query;
-    const data = await Products.find({ name: { $regex: query, $options: 'i' } });
 
-    console.log("Tìm kiếm thành cong : " + data);
+    const data = await Products.find({ name: { $regex: query, $options: 'i' } });
     res.render('listProducts', { data: data.map(data => data.toJSON()), query: query });
     if (query.length == 0) {
         res.redirect('/listProducts');
     }
+
 });
 
 router.post("/product/delete", async (req, res, next) => {
 
     var id = req.body.id;
-        await Products.findByIdAndDelete(id).then(result => {
-            res.redirect('/listProducts');
-        }).
-            catch(err => {
-                console.log("Lỗi Delete : " + err);
-            });
-    });
+    await Products.findByIdAndDelete(id).then(result => {
+        res.redirect('/listProducts');
+    }).
+        catch(err => {
+            console.log("Lỗi Delete : " + err);
+        });
+});
 
 
 module.exports = router;

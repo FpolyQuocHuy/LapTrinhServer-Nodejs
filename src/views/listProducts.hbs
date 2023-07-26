@@ -20,7 +20,9 @@
       <th scope="col">Category</th>
       <th scope="col">Action</th>
     </tr>
+
   </thead>
+
   <tbody>
     {{!-- {{#if isAdmin}} --}}
     {{#if data}}
@@ -31,7 +33,7 @@
       <td>
         <img src="{{this.image.data}}" alt="image" style="width: 50px; height: 50px;">
       </td>
-      <td>{{this.desc}}</td>  
+      <td>{{this.desc}}</td>
       <td>{{this.category}}</td>
       <td style="display: flex; justify-content: space-around; ">
         <form method="POST" action="/product/delete">
@@ -44,8 +46,43 @@
     {{/each}}
     {{else}}
     {{/if}}
-    <p>Số lượng sản phẩm : {{countProduct}}</p>
 
   </tbody>
 </table>
 
+<nav class="d-flex justify-content-center" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="?page={{currentPage-1}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+     <li class="page-item {{#if this.isActive}}active{{/if}} ">
+      <a class="page-link" href="?page=1">1</a>
+    </li>
+     <li class="page-item  {{#if this.isActive}}active{{/if}}">
+      <a class="page-link" href="?page=2">2</a>
+    </li>
+     <li class="page-item  {{#if this.isActive}}active{{/if}}">
+      <a class="page-link" href="?page=3">3</a>
+    </li>
+    <li class="page-item  {{#if this.isActive}}active{{/if}}">
+      <a class="page-link" href="?page=4">4</a>
+    </li>
+    {{#if totalPages}}
+    {{#each totalPages}}
+    <li class="page-item {{#if this.isActive}}active{{/if}}">
+      <a class="page-link" href="?page={{this}}">{{this}}</a>
+    </li>
+    {{/each}}
+    {{else}}
+    {{/if}}
+    <li class="page-item">
+      <a class="page-link" href="?page={{nextPage}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>

@@ -1,3 +1,8 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "editor.fontSize": 12,
+    "editor.tabSize": 3,
+    "workbench.tree.indent": 8,
+    "diffEditor.maxFileSize": 100,
+    "editor.minimap.scale": 2
 }
