@@ -50,9 +50,9 @@ router.post("/login" , async(req , res) => {
           console.log("OTP đã bị xóa.");
         }, 120000);
         try {
-           sendMail({ email, otp });
-          res.redirect('/otp');
-          // res.redirect('/home');
+          //  sendMail({ email, otp });
+          // res.redirect('/otp');
+          res.redirect('/home');
         }catch(err) {
           console.log("Lỗi : " , err);
         }

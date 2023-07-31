@@ -1,11 +1,12 @@
 const express = require("express");
+const app = express();
 var exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
-const { LocalStorage } = require('node-localstorage');
 //model
 const Products = require("../model/Products");
+const Message = require('../model/chat.model.js')
 //router
 const loginRouter = require("../route/loginRouter.js");
 const registerRoute = require("../route/registerRouter.js");
@@ -15,10 +16,13 @@ const addProducts = require("../route/addProducts.js");
 const information = require("../route/information");
 const detailUser = require("../route/detailUser");
 const detailProduct = require("../route/detailProduct");
+const chat = require("../route/chat.js")
+// socket
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+
 const bodyParser = require("body-parser");
-const app = express();
-const bearerToken = require('express-bearer-token');
-app.use(bearerToken());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -45,6 +49,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
 //   app.get("/home", async (req, res, next) => {
 //     var data = req.session.data;
 //         const products = await Products.find({});
@@ -123,9 +128,31 @@ app.use("/", addProducts);
 app.use("/", information);
 app.use("/", detailUser);
 app.use("/", detailProduct);
+app.use("/", chat);
 
-// router.get("/products/addProducts:id" , addProducts); 
-app.listen(5000, () => {
-    console.log('server is runing : http://localhost:5000');
+server.listen(5000, () => {
+    console.log('server is runing socket io : http://localhost:5000');
 
 });
+io.on('connection', (socket) => {
+    console.log('User connected to socket');
+  
+
+    socket.on('chat message', async(msg) => {
+
+      try {
+        
+        await Message.insertMany(msg);
+        console.log('Tin nhắn đã được lưu vào MongoDB:', msg);
+      } catch (error) {
+        console.error('Lỗi khi lưu tin nhắn vào MongoDB:', error);
+      }
+
+      io.emit('chat message', msg);
+    });
+  
+
+    socket.on('disconnect', () => {
+      console.log('User disconnected from socket');
+    });
+  });
