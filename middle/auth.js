@@ -8,18 +8,7 @@ passport.use(new GoogleStrategy({
   passReqToCallback: true,
 },async (req,accessToken, refreshToken, profile, done) => {
 	try {
-		if(profile != null) {
-			const user = {
-			userName: profile.displayName,
-			__id: profile.id,
-			role: 'user'
-		 };
 	
-		 req.session.user = user;
-		 	console.log("user " ,user);
-		}
-		
-
 	  done(null, profile);
 	} catch (error) {
 	  done(error, null);

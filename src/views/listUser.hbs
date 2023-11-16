@@ -7,9 +7,8 @@
       <th scope="col">PhoneNumber</th>
       <th scope="col">Address</th>
       <th scope="col">Role</th>
-      {{#if isAdmin}}
       <th scope="col" style="display: flex; justify-content: center; ">Action</th>
-      {{/if}}
+     
     </tr>
   </thead>
   <tbody>
@@ -29,6 +28,9 @@
           <input type="hidden" name="_id" value="{{this.__id}}">
           <button class="btn btn-danger" style="width: 70px;" type="submit">Delete</button>
         </form>
+
+        <a href="/chat:{{this.userName}}" class="btn btn-primary" style="width: 70px;">Chat</a>
+
       </td>
     </tr>
     {{/each}}
@@ -43,6 +45,11 @@
       <td>{{this.numberPhone}}</td>
       <td>{{this.address}}</td>
       <td>{{this.role}}</td>
+
+      <td style="display: flex; justify-content: space-around;">
+        <a href="/chat:{{this.userName}}" class="btn btn-primary" style="width: 70px;">Chat</a>
+      </td>
+
       {{/each}}
       {{/if}}
   </tbody>

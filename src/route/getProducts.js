@@ -8,7 +8,7 @@ const myCache = new NodeCache();
 
 router.get("/listProducts", async (req, res, next) => {
     var user = req.session.user ? req.session.user.userName : "";
-    var PAGE_SIZE = 5;
+    var PAGE_SIZE = 2;
     const currentPage = parseInt(req.query.page) || 1;
     const countPage = (currentPage - 1) * PAGE_SIZE;
 
@@ -43,7 +43,6 @@ router.get("/listProducts", async (req, res, next) => {
                     },
                 };
             }
-
         }
         );
         const key = "listProducts";
@@ -53,6 +52,14 @@ router.get("/listProducts", async (req, res, next) => {
         const totalPages = Math.ceil(countProd / PAGE_SIZE);
         const nextPage = (currentPage < totalPages) ? currentPage + 1 : null;
 
+        const pageItems = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pageItems.push({
+                page: i,
+                isActive: i === currentPage, // Kiểm tra trang hiện tại
+            });
+        }
+
         const data = datas.filter(item => item);
         res.render("listProducts", {
             style: "styles.css",
@@ -60,13 +67,16 @@ router.get("/listProducts", async (req, res, next) => {
             user: user,
             nextPage: nextPage,
             currentPage: currentPage,
-            totalPages: totalPages
+            totalPages: totalPages,
+            pageItems: pageItems
         });
     } catch (err) {
         console.log(err);
         res.status(500).send('Error Occurred');
     }
 });
+
+// ---------------------------------------------------------------------------
 
 router.post('/search', async (req, res) => {
     const query = req.body.query;

@@ -77,11 +77,10 @@ router.get('/auth/google',
 
 router.post('/verify-otp', (req, res) => {
   const submittedOTP = req.body.otp;
-  const expectedOTP = req.session.otp; 
-  console.log("otp " , expectedOTP);
-  console.log("submittedOTP " , submittedOTP);
+  const expectedOTP = req.session.otp;
   if (submittedOTP == expectedOTP) {
     console.log("Đăng nhập thành công");
+    console.log(req.body.user);
     res.redirect('/home');
    
   }else {
@@ -98,6 +97,7 @@ router.get('/otp', (req, res) => {
 router.get( '/auth/google/callback',
 passport.authenticate('google', { failureRedirect: '/login' }),
 (req, res) => {
+  req.session.user = req.user;
   res.redirect('/home');
 }
 );
