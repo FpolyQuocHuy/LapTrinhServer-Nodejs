@@ -120,6 +120,7 @@ app.get("/home1", async (req, res) => {
     res.json(data);
 
 });
+
 app.use("/", loginRouter);
 app.use("/", registerRoute);
 app.use("/", listUserRoute);
@@ -132,6 +133,12 @@ app.use("/", chat);
 
 server.listen(5000, () => {
     console.log('server is runing socket io : http://localhost:5000');
+
+
+// router.get("/products/addProducts:id" , addProducts); 
+app.listen(5000, () => {
+    console.log('server is runing : http://localhost:5000/home');
+
 
 });
 io.on('connection', (socket) => {
